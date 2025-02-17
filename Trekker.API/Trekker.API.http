@@ -1,6 +1,0 @@
-@Trekker.API_HostAddress = http://localhost:5078
-
-GET {{Trekker.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

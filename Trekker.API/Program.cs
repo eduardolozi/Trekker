@@ -1,44 +1,54 @@
+using DotNetEnv;
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
+using Keycloak.AuthServices.Common;
+using Trekker.API.Utils;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
+Env.Load("../.env");
+
+builder.Services.AddKeycloakWebApiAuthentication(options =>
+{
+    options.Audience = TrekkerEnvironment.KcClientId;
+    options.Realm = TrekkerEnvironment.Realm;
+    options.SslRequired = "none";
+    options.Resource = TrekkerEnvironment.KcClientId;
+    options.VerifyTokenAudience = true;
+    options.Credentials = new KeycloakClientInstallationCredentials
+    {
+        Secret = TrekkerEnvironment.KcClientSecret
+    };
+    options.AuthServerUrl = TrekkerEnvironment.KcAuthServerUrl;
+});
+builder.Services.AddKeycloakAuthorization(options =>
+{
+    options.VerifyTokenAudience = true;
+    options.Realm = TrekkerEnvironment.Realm;
+    options.SslRequired = "none";
+    options.Resource = TrekkerEnvironment.KcClientId;
+    options.VerifyTokenAudience = true;
+    options.Credentials = new KeycloakClientInstallationCredentials
+    {
+        Secret = TrekkerEnvironment.KcClientSecret
+    };
+    options.AuthServerUrl = TrekkerEnvironment.KcAuthServerUrl;
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
-
+app.MapControllers();
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -7,8 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DotNetEnv" Version="3.1.1" />
+        <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.6.0" />
+        <PackageReference Include="Keycloak.AuthServices.Authorization" Version="2.6.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Trekker.Application\Trekker.Application.csproj" />
+      <ProjectReference Include="..\Trekker.Infrastructure\Trekker.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
