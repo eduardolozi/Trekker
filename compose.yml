@@ -1,4 +1,16 @@
 services:
+  postgresTrekker:
+    image: postgres:latest
+    container_name: db_trekker
+    environment:
+      POSTGRES_DB: trekker
+      POSTGRES_USER: ${POSTGRES_TREKKER_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_TREKKER_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - trekker_db_data:/var/lib/postgresql/data
+  
   postgresKeycloak:
     image: postgres:latest
     container_name: keycloak_db_trekker
@@ -33,4 +45,5 @@ services:
       
 
 volumes:
+  trekker_db_data:
   keycloak_db_data:

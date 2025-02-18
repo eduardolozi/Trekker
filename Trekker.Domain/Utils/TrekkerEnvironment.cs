@@ -1,4 +1,4 @@
-﻿namespace Trekker.API.Utils;
+﻿namespace Trekker.Domain.Utils;
 
 public static class TrekkerEnvironment
 {
@@ -13,4 +13,7 @@ public static class TrekkerEnvironment
     
     public static string KcAuthServerUrl = Environment.GetEnvironmentVariable("KEYCLOAK_AUTH_SERVER_URL")
         ?? throw new Exception("Environment variable 'KEYCLOAK_AUTH_SERVER_URL' not set.");
+    
+    public static string TrekkerPostgresConnectionString = Environment.GetEnvironmentVariable("TREKKER_DB_CONNECTION_STRING")
+        ?? throw new Exception("Environment variable 'TREKKER_DB_CONNECTION_STRING' not set.");
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Trekker.API.Utils;
+using Trekker.Domain.Utils;
 
 namespace Trekker.API.Controllers;
 

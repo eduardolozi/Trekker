@@ -10,4 +10,10 @@
       <ProjectReference Include="..\Trekker.Domain\Trekker.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Interfaces\" />
+      <Folder Include="IoC\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
