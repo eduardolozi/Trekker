@@ -1,21 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Trekker.Application.Interfaces;
 using Trekker.Domain.Utils;
+using RegisterRequest = Trekker.Application.DTOs.RegisterRequest;
 
 namespace Trekker.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UserController(IUserService userService) : ControllerBase
 {
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Create(RegisterRequest registerRequest)
-    {
-        await Task.Delay(1000);
-        return Ok("djisjdisjd");
-    }
-    
     [HttpGet]
     public async Task<IActionResult> GetAdminToken()
     {
@@ -31,9 +24,11 @@ public class UserController : ControllerBase
         response.EnsureSuccessStatusCode();
         return Ok(await response.Content.ReadFromJsonAsync<dynamic>());
     }
-}
 
-public class RegisterRequest
-{
-    public string FirstName { get; set; }
+    [HttpPost]
+    public async Task<IActionResult> Create(RegisterRequest registerRequest)
+    {
+        await userService.Register(registerRequest);
+        return Ok();
+    }
 }

@@ -7,7 +7,7 @@ namespace Trekker.API.IoC;
 
 public static class ApiIoC
 {
-    public static void UseApi(this IServiceCollection services)
+    public static void AddApi(this IServiceCollection services)
     {
         services.AddKeycloakWebApiAuthentication(options =>
         {

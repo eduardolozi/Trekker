@@ -1,12 +1,14 @@
 using DotNetEnv;
 using Trekker.API.IoC;
+using Trekker.Application.IoC;
 using Trekker.Infrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load("../.env");
 
-builder.Services.UseInfrastructure();
-builder.Services.UseApi();
+builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
+builder.Services.AddApi();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

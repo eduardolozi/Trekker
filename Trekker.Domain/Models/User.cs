@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Trekker.Domain.Models;
+﻿namespace Trekker.Domain.Models;
 
 public class User
 {
