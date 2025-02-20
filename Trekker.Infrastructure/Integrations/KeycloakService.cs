@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using Trekker.Domain.DTOs;
 using Trekker.Domain.Interfaces;
@@ -14,10 +13,10 @@ public class KeycloakService(HttpClient httpClient, IDistributedCache cache) : I
     private async Task<string> GetClientToken()
     {
         const string clientTokenKey = "keycloak_client_token";
-        var jsonData = await cache.GetStringAsync(clientTokenKey);
-        if (jsonData != null)
+        var accessToken = await cache.GetStringAsync(clientTokenKey);
+        if (accessToken != null)
         {
-            return jsonData;
+            return accessToken;
         }
         
         var tokenRequest = new Dictionary<string, string>
