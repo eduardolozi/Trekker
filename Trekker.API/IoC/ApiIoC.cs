@@ -9,6 +9,14 @@ public static class ApiIoC
 {
     public static void AddApi(this IServiceCollection services)
     {
+        services.AddProblemDetails(options =>
+        {
+            options.CustomizeProblemDetails = (context) =>
+            {
+                context.ProblemDetails.Extensions.Remove("headers");
+            };
+        });
+        
         services.AddStackExchangeRedisCache(opt =>
         {
             opt.Configuration = TrekkerEnvironment.RedisConnectionString;
