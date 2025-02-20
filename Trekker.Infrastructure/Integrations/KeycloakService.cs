@@ -40,8 +40,9 @@ public class KeycloakService(HttpClient httpClient) : IKeycloakService
         var roleResponse = await httpClient.GetAsync($"roles");
         roleResponse.EnsureSuccessStatusCode();
         var roles = await roleResponse.Content.ReadFromJsonAsync<List<KeycloakRoleDTO>>() ?? throw new Exception("Error retrieving roles");
-        var role = roles.First(x => x.Id == registerDto.RealmRoles[0].ToString());
+        var assignedRole = roles.First(x => x.Name == registerDto.RealmRoles[0].ToString());
         
-        var x = 3;
+        var roleMappingResponse = await httpClient.PostAsJsonAsync($"users/{userId}/role-mappings/realm", new List<KeycloakRoleDTO> { assignedRole });
+        roleMappingResponse.EnsureSuccessStatusCode();
     }
 }
