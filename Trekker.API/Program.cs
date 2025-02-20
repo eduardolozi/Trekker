@@ -6,9 +6,9 @@ using Trekker.Infrastructure.IoC;
 var builder = WebApplication.CreateBuilder(args);
 Env.Load("../.env");
 
+builder.Services.AddApi();
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
-builder.Services.AddApi();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

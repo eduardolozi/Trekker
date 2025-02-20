@@ -9,6 +9,11 @@ public static class ApiIoC
 {
     public static void AddApi(this IServiceCollection services)
     {
+        services.AddStackExchangeRedisCache(opt =>
+        {
+            opt.Configuration = TrekkerEnvironment.RedisConnectionString;
+        });
+        
         services.AddKeycloakWebApiAuthentication(options =>
         {
             options.Audience = TrekkerEnvironment.KcClientId;

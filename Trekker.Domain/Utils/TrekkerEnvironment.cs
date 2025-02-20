@@ -16,4 +16,7 @@ public static class TrekkerEnvironment
     
     public static string TrekkerPostgresConnectionString = Environment.GetEnvironmentVariable("TREKKER_DB_CONNECTION_STRING")
         ?? throw new Exception("Environment variable 'TREKKER_DB_CONNECTION_STRING' not set.");
+    
+    public static string RedisConnectionString = Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING")
+        ?? throw new Exception("Environment variable 'REDIS_CONNECTION_STRING' not set.");
 }
