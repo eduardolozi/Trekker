@@ -1,8 +1,8 @@
-﻿using Trekker.Application.DTOs;
+﻿using Trekker.Domain.DTOs;
 
 namespace Trekker.Application.Interfaces;
 
 public interface IUserService
 {
-    Task Register(RegisterRequest registerRequest);
+    Task Register(KeycloakRegisterDTO registerDto);
 }

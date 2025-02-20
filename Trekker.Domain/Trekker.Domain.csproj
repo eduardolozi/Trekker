@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\" />
       <Folder Include="IoC\" />
       <Folder Include="Validators\" />
     </ItemGroup>
