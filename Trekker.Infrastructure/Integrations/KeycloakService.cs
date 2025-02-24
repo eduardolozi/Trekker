@@ -85,9 +85,9 @@ public class KeycloakService(HttpClient httpClient, IDistributedCache cache) : I
         }
         
         var createdUser = await GetUserByUsername(registerDto.Username);
-        var userId = createdUser.Id!;
+        registerDto.Id = createdUser.Id!;
         
-        await RegisterRole(userId, registerDto.RealmRoles[0].ToString());
+        await RegisterRole(registerDto.Id, registerDto.RealmRoles[0].ToString());
     }
 
     public async Task<List<KeycloakRoleDTO>> GetRoles()

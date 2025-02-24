@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Trekker.Infrastructure;
@@ -11,9 +12,11 @@ using Trekker.Infrastructure;
 namespace Trekker.Infrastructure.Migrations
 {
     [DbContext(typeof(TrekkerDbContext))]
-    partial class TrekkerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224222039_removendoRoles")]
+    partial class removendoRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,10 +189,6 @@ namespace Trekker.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("PhotoUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
 

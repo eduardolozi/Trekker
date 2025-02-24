@@ -15,8 +15,6 @@ public class TrekkerDbContext : DbContext
     
     public DbSet<Workspace> Worksapce { get; set; }
     public DbSet<User> User { get; set; }
-    public DbSet<Role> Role { get; set; }
-    public DbSet<Permission> Permission { get; set; }
     public DbSet<Chat> Chat { get; set; }
     public DbSet<ChatMessage> ChatMessage { get; set; }
     public DbSet<ChatActivity> ChatActivitie { get; set; }
