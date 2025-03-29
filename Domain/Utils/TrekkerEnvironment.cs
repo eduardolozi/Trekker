@@ -28,4 +28,10 @@ public static class TrekkerEnvironment
     
     public static string KcClientUuid = Environment.GetEnvironmentVariable("KEYCLOAK_CLIENT_UUID")
         ?? throw new Exception("Environment variable 'KEYCLOAK_CLIENT_UUID' not set.");
+    
+    public static string AwsAccessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY")
+        ?? throw new Exception("Environment variable 'AWS_ACCESS_KEY' not set.");
+    
+    public static string AwsSecretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY")
+        ?? throw new Exception("Environment variable 'AWS_SECRET_KEY' not set.");
 }
