@@ -28,7 +28,7 @@ public static class IoC
 
     private static void ConfigureAwsS3(this IServiceCollection services)
     {
-        services.AddSingleton<IAmazonS3>(_ =>
+        services.AddSingleton<IAmazonS3>(sp =>
         {
             var credentials = new BasicAWSCredentials(TrekkerEnvironment.AwsAccessKey, TrekkerEnvironment.AwsSecretKey);
             return new AmazonS3Client(credentials, RegionEndpoint.USEast2);

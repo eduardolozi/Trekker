@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services;
+using Domain.DTOs;
 using Domain.Filters;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,20 @@ namespace API.Controllers
         public async Task<IActionResult> Create([FromBody] User user)
         {
             await userService.CreateUser(user);
+            return Ok();
+        }
+
+        [HttpPut("{id}/photo")]
+        public async Task<ActionResult> PutPhoto([FromRoute] int id, [FromForm] IFormFile photo)
+        {
+            var file = new FileDTO
+            {
+                ContentType = photo.ContentType,
+                FileName = photo.FileName,
+                Stream = photo.OpenReadStream()
+            };
+            
+            await userService.PutPhoto(id, file);
             return Ok();
         }
 

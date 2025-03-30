@@ -34,4 +34,7 @@ public static class TrekkerEnvironment
     
     public static string AwsSecretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY")
         ?? throw new Exception("Environment variable 'AWS_SECRET_KEY' not set.");
+    
+    public static string S3BucketName = Environment.GetEnvironmentVariable("AWS_S3_BUCKET_NAME")
+        ?? throw new Exception("Environment variable 'AWS_S3_BUCKET_NAME' not set.");
 }

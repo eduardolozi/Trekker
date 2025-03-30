@@ -21,4 +21,15 @@ public class UserRepository(TrekkerContext db) : IUserRepository
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
     }
+
+    public async Task PutPhoto(int id, string photoUrl)
+    {
+        var user = await db.User.FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new Exception("The user could not be found.");
+        
+        user.PhotoPath = photoUrl;
+        await db.SaveChangesAsync();
+    }
+
+    public Task SaveChangesAsync() => db.SaveChangesAsync();
 }
