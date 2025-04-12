@@ -25,12 +25,19 @@ public class UserService(IExternalAuthService externalAuthService, IUserReposito
     public async Task PutPhoto(int id, FileDTO file)
     {
         file.FileName = file.FileName.Replace(" ", string.Empty);
-        var urlFile = await s3Service.PutObject(file);
-        await userRepository.PutPhoto(id, urlFile);
+        var fileKey = await s3Service.PutObject(file);
+        await userRepository.PutPhoto(id, fileKey);
     }
 
-    public Task<User?> GetUser(int id, UserFilter filter)
+    public async Task<User?> GetUser(int id, UserFilter filter)
     {
-        return userRepository.FindUser(id, filter);
+        var user = await userRepository.FindUser(id, filter);
+
+        if (user != null && !string.IsNullOrEmpty(user.PhotoPath))
+        {
+            user.PhotoPath = await s3Service.GetPresignedUrl(user.PhotoPath);
+        }
+
+        return user;
     }
 }

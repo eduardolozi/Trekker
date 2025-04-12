@@ -29,6 +29,18 @@ public class S3Service(IAmazonS3 amazonS3Client)
         };
 
         await amazonS3Client.PutObjectAsync(request);
-        return $"https://trekkerbucket.s3.us-east-2.amazonaws.com/{folder}/{file.FileName}";
+        // return $"https://trekkerbucket.s3.us-east-2.amazonaws.com/{folder}/{file.FileName}";
+        return request.Key;
+    }
+
+    public Task<string> GetPresignedUrl(string fileKey)
+    {
+        var request = new GetPreSignedUrlRequest
+        {
+            BucketName = _bucketName,
+            Expires = DateTime.UtcNow.AddHours(1),
+            Key = fileKey
+        };
+        return amazonS3Client.GetPreSignedURLAsync(request);
     }
 }
